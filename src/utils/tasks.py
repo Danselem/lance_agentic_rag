@@ -1,9 +1,8 @@
 import json
 from datetime import datetime, timedelta
 
-from retrievers import (retrieve_problems, retrieve_parts,
-                              retrieve_car_details, diagnose_car_problem,
-                              estimate_repair_cost, get_maintenance_schedule)
+from retrievers import (retrieve_parts, retrieve_car_details, 
+                        diagnose_car_problem, estimate_repair_cost)
 
 
 

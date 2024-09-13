@@ -1,20 +1,10 @@
 import os
-import tqdm
-import json
-import time
 from typing import List, Optional, Dict, Any
-from tqdm import tqdm
 import logging
-from llama_index.core import (
-    SimpleDirectoryReader,
-    VectorStoreIndex,
-    StorageContext,
-    Settings,
-    Document,
-)
+from llama_index.core import Settings
 
-from llama_index.llms.openai import OpenAI
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.llms.groq import Groq
+from llama_index.embeddings.nvidia import NVIDIAEmbedding
 from llama_index.core.tools import FunctionTool
 from llama_index.core.agent import FunctionCallingAgentWorker
 from llama_index.core.agent import AgentRunner
@@ -30,18 +20,16 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 utils._set_env("NVIDIA_API_KEY")
 utils._set_env("GROQ_API_KEY")
 
-OPENAI_API_KEY = "****"
-if not OPENAI_API_KEY:
-    raise ValueError("Please set the OPENAI_API_KEY environment variable.")
 
 # LLM setup
-llm = OpenAI(model="gpt-4", api_key=OPENAI_API_KEY)
+llm = Groq(model="llama3-70b-8192",))
 
 # Embedding model setup
-embed_model = HuggingFaceEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")
+
+embedder = NVIDIAEmbedding(model="NV-Embed-QA")
 
 # Update the Settings with the new embedding model
-Settings.embed_model = embed_model
+Settings.embed_model = embedder
 Settings.chunk_size = 512
 
 

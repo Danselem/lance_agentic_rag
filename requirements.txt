@@ -1,0 +1,6 @@
+tqdm
+llama_index
+lancedb
+llama-index-embeddings-nvidia
+llama-index-llms-groq
+python-dotenv
